@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Main from "./Main";
+import Detail from "./Detail";
+import "./App.css";
 
-function App() {
+export default function App() {
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const now = new Date();
+  const date = now.getDate();
+  const year = now.getFullYear();
+  const day = days[now.getDay()];
+  const month = months[now.getMonth()];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <div className="navBar">
+        <h5 className="head">
+          Market Today{" "}
+          <span>
+            ({day}, {date}th {month} {year})
+          </span>
+        </h5>
+      </div>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Main />}></Route>
+          <Route exact path="/detail/:id" element={<Detail />}></Route>
+        </Routes>
+      </Router>
+    </Fragment>
   );
 }
-
-export default App;
